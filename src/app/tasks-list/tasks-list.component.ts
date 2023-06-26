@@ -53,8 +53,8 @@ export class TasksListComponent implements OnInit{
       if (this.editMode) {
         const taskId: string | undefined = this.tasks[this.editIndex].id;
         this.taskApiService.updateTask(taskId, task).subscribe(
-          () => {
-            this.tasks[this.editIndex] = task;
+          (res) => {
+            this.tasks[this.editIndex] = res['data'];
             this.editMode = false;
             this.taskForm.reset();
             this.formGroupDirective.resetForm();
@@ -66,7 +66,7 @@ export class TasksListComponent implements OnInit{
       } else {
         this.taskApiService.addTask(task).subscribe(
           response => {
-            task.id = response.id;
+            task.id = response.data.id;
             this.tasks.push(task);
             this.taskForm.reset();
             this.formGroupDirective.resetForm();
