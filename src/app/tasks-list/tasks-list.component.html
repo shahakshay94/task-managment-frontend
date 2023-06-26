@@ -1,0 +1,48 @@
+<h2>Tasks List</h2>
+
+<form #myFormDirective="ngForm" (ngSubmit)="addTask()" [formGroup]="taskForm">
+  <div class="task-input-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input #input formControlName="title" matInput maxlength="45" required>
+      <mat-hint align="end">{{input.value.length}}/45</mat-hint>
+      <mat-error *ngIf="taskForm.get('title')?.hasError('required')">Title is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea #i formControlName="description" matInput maxlength="255" required></textarea>
+      <mat-hint align="end">{{i.value.length}}/255</mat-hint>
+      <mat-error *ngIf="taskForm.get('description')?.hasError('required')">Description is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-slide-toggle color="primary" formControlName="isCompleted">Status</mat-slide-toggle>
+
+    <button [disabled]="!taskForm.valid" color="primary" mat-raised-button
+            type="submit">{{ editMode ? 'Update' : 'Add' }} Task
+    </button>
+    <button (click)="resetTask()" color="primary" mat-raised-button>Reset</button>
+  </div>
+</form>
+
+<mat-list>
+  <mat-list-item *ngFor="let task of tasks; let i = index">
+    <div class="list-item-content">
+      <div class="left-content">
+    <div matListItemTitle>{{ task.title }}</div>
+    <div class="description" matListItemLine>{{ task.description }}</div>
+    <div class="status" matListItemLine>{{ task.isCompleted ? 'Completed' : 'Pending' }}</div>
+      </div>
+      <div class="right-content">
+    <button (click)="editTask(i)" color="primary" mat-icon-button>
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button (click)="deleteTask(i)" color="warn" mat-icon-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+      </div>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>
