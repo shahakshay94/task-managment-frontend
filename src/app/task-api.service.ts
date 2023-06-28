@@ -27,7 +27,7 @@ export class TaskApiService {
     return this.http.patch<any>(url, task);
   }
 
-  deleteTodo(taskId: string | undefined): Observable<any> {
+  deleteTask(taskId: string | undefined): Observable<any> {
     const url = `${this.apiUrl}/${taskId}`;
     return this.http.delete<any>(url);
   }

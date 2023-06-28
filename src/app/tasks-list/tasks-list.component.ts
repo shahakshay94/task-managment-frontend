@@ -88,7 +88,7 @@ export class TasksListComponent implements OnInit{
 
   deleteTask(index: number) {
     const taskId = this.tasks[index].id;
-    this.taskApiService.deleteTodo(taskId).subscribe(
+    this.taskApiService.deleteTask(taskId).subscribe(
       () => {
         this.tasks.splice(index, 1);
       },
